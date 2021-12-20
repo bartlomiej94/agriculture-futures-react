@@ -1,0 +1,22 @@
+@import "src/styles/globals.scss";
+
+.container {
+    @include flex-row-space-between;
+    align-items: center;
+    padding: 0 96px;
+    width: 100%;
+    height: 70px;
+
+    .logo {
+        @include flex-row-center-y;
+        width: 175px;
+        margin: 0 !important;
+        color: $agriax-green;
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+    }
+}

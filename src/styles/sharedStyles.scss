@@ -1,0 +1,67 @@
+@import "src/styles/globals.scss";
+
+.ant-form-item-label {
+    padding: 0 !important;
+}
+
+.ant-btn {
+    font-weight: bold !important;
+    border-radius: 4px !important;
+
+    &.ant-btn-primary {
+        background: $agriax-green !important;
+        border-color: darken($agriax-green, 2%) !important;
+
+        &:hover {
+            background: lighten($agriax-green, 2%) !important;
+        }
+
+        &[disabled] {
+            background: $grey !important;
+            border-color: darken($grey, 2%) !important;
+        }
+    }
+}
+
+.ant-upload {
+    width: 100% !important;
+
+    &:hover {
+        border-color: $agriax-green !important;
+    }
+}
+
+.ant-input {
+    &:hover {
+        border-color: $agriax-green !important;
+    }
+}
+
+.ant-steps-item-process, .ant-steps-item-finish {
+    .ant-steps-icon {
+        color: $agriax-green !important;
+    }
+}
+
+.ant-picker-today-btn,
+.ant-spin,
+.ant-spin-dot-item {
+    color: $agriax-green !important;
+}
+
+.ant-picker-cell-today {
+    .ant-picker-cell-inner::before {
+        border-color: darken($agriax-green, 10%) !important;
+    }
+}
+
+.ant-picker-cell-selected > .ant-picker-cell-inner,
+.ant-steps-item-finish .ant-steps-item-title::after,
+.ant-spin-dot-item {
+
+    background: $agriax-green !important;
+}
+
+.ant-form-item-explain-error {
+    text-align: left !important;
+}

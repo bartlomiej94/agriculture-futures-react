@@ -1,0 +1,31 @@
+@import "src/styles/globals.scss";
+
+.page {
+    @include app-page;
+    background: $light-grey;
+    min-height: 100vh;
+    padding: 48px;
+}
+
+.header {
+    max-width: 400px;
+    margin-bottom: 24px;
+}
+
+.form {
+    @include app-form;
+    background: #FFFFFF;
+    // border: 1px solid lighten($agriax-green, 35%);
+    border: 1px solid $grey;
+    border-radius: 4px;
+    padding: 24px;
+}
+
+.datePicker {
+    height: 32px;
+    width: 100%;
+}
+
+.uploadArea {
+    font-size: 14px;
+}
