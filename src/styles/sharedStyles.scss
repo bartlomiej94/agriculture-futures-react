@@ -1,4 +1,4 @@
-@import "src/styles/globals.scss";
+@import "../styles/globals.scss";
 
 .ant-form-item-label {
     padding: 0 !important;
@@ -15,10 +15,23 @@
         &:hover {
             background: lighten($agriax-green, 2%) !important;
         }
+    }
 
-        &[disabled] {
+    &.orange {
+        background: $agriax-orange !important;
+        border-color: darken($agriax-orange, 2%) !important;
+
+        &:hover {
+            background: lighten($agriax-orange, 2%) !important;
+        }
+    }
+
+    &[disabled] {
+        background: $grey !important;
+        border-color: darken($grey, 2%) !important;
+
+        &:hover {
             background: $grey !important;
-            border-color: darken($grey, 2%) !important;
         }
     }
 }
@@ -31,7 +44,9 @@
     }
 }
 
-.ant-input {
+.ant-input,
+.ant-picker,
+.ant-select:not(.ant-select-disabled) .ant-select-selector {
     &:hover {
         border-color: $agriax-green !important;
     }
@@ -45,8 +60,17 @@
 
 .ant-picker-today-btn,
 .ant-spin,
-.ant-spin-dot-item {
+.ant-spin-dot-item,
+.agriax-green {
     color: $agriax-green !important;
+}
+
+a {
+    color: $agriax-green !important;
+    
+    &:hover {
+        color: lighten($agriax-green, 2%) !important;
+    }
 }
 
 .ant-picker-cell-today {
@@ -55,10 +79,19 @@
     }
 }
 
+.ant-radio-checked .ant-radio-inner {
+    border-color: $agriax-green !important;
+}
+
+.ant-radio-inner {
+    &::after {
+        background-color: $agriax-green !important;
+    }
+}
+
 .ant-picker-cell-selected > .ant-picker-cell-inner,
 .ant-steps-item-finish .ant-steps-item-title::after,
 .ant-spin-dot-item {
-
     background: $agriax-green !important;
 }
 

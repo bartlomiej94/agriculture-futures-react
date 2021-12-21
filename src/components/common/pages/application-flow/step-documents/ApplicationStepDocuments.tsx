@@ -2,11 +2,14 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button, Divider, Form, Input, Space, Table, Typography, Upload } from "antd";
+import BackButton from "../../../presenters/back-button/BackButton";
 import Stepper from "../../../presenters/stepper/Stepper";
 
 import { RouteStrings } from "../../../../../Routes";
 import { useNavigate } from "react-router-dom";
 import { CloudUploadOutlined } from "@ant-design/icons";
+
+import { scrollTo } from "../../../../helpers/helpers";
 
 import styles from "../ApplicationFlow.module.scss";
 
@@ -22,19 +25,23 @@ const ApplicationStepDocuments: React.FC<any> = () => {
 
     const columns = [
         {
-            title: "Uploaded documents",
+            title: t("common:uploadedDocuments"),
             dataIndex: 'document_name',
         },
     ];
+
+    React.useEffect(() => {
+        scrollTo(0);
+    }, []);
 
     return (
         <div className={styles.page}>
             <div className={styles.header}>
                 <Typography.Title level={2}>
-                    {t("titles:completeApplication")}
+                    {t("forms:titles:completeApplication")}
                 </Typography.Title>
                 <Typography.Text type="secondary">
-                    {t("subtitles:completeApplication")}
+                    {t("forms:subtitles:completeApplication")}
                 </Typography.Text>
             </div>
             <Form
@@ -44,6 +51,8 @@ const ApplicationStepDocuments: React.FC<any> = () => {
                 scrollToFirstError
                 onFinish={handleSubmit}
             >
+                <BackButton to={RouteStrings.ApplicationFlowStepCreateAccount} />
+
                 <Stepper
                     current={RouteStrings.ApplicationFlowStepDocuments}
                     steps={RouteStrings.DEFAULT_PROCESS_FLOW_PATHS}
@@ -54,14 +63,14 @@ const ApplicationStepDocuments: React.FC<any> = () => {
                 <Space direction="vertical" size={12} style={{ width: "100%" }}>
                     <div style={{ textAlign: "left" }}>
                         <Typography.Paragraph>
-                            To finalize your application we require you to upload the following documents:
+                            {t("forms:subtitles:requiredDocumentsPrefix")}
                         </Typography.Paragraph>
                         <Typography.Paragraph>
                             1. Proof of ID <br />
                             2. Utility bill <br />
                         </Typography.Paragraph>
                         <Typography.Paragraph>
-                            You can access your account with a limited use by the time we verify your data.
+                            {t("forms:subtitles:requiredDocumentsSuffix")}
                         </Typography.Paragraph>
                         <Divider />
                     </div>
@@ -75,7 +84,7 @@ const ApplicationStepDocuments: React.FC<any> = () => {
                     >
                         <Space direction="vertical" style={{ width: "100%" }}>
                             <CloudUploadOutlined/>
-                            Click to choose or drag documents here.
+                            {t("common:documentUploadAreaText")}
                         </Space>
                     </Upload>
 
@@ -85,18 +94,25 @@ const ApplicationStepDocuments: React.FC<any> = () => {
 
                     <Form.Item
                         name={"notes"}
-                        label={<Typography.Title level={5}>{t("formLabels:notes")}</Typography.Title>}
-                        rules={[{ message: t("errors:invalidData"), min: 5, max: 1000 }]}
+                        label={<Typography.Title level={5}>{t("forms:labels:notes")}</Typography.Title>}
+                        rules={[{ message: t("forms:errors:invalidData"), min: 5, max: 1000 }]}
                     >
                         <TextArea
                             data-cy="input_notes"
-                            placeholder={t("placeholders:notes")}
+                            placeholder={`(${t("common:optional")}) ${t("forms:placeholders:notes")}`}
                         />
                     </Form.Item>
 
-                    <Button type="primary" htmlType="submit" disabled>
-                        {t("buttons:continue")}
-                    </Button>
+                    <div className={styles.formButton}>
+                        <Space>
+                            <Button type="primary" htmlType="submit" disabled>
+                                {t("buttons:finalize")}
+                            </Button>
+                            <Button className="orange" type="primary">
+                                {t("buttons:completeLater")}
+                            </Button>
+                        </Space>
+                    </div>
                 </Space>
             </Form>
         </div>

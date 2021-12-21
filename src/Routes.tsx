@@ -20,8 +20,8 @@ export class RouteStrings {
     ];
 
     public static readonly DEFAULT_PROCESS_FLOW_TITLES = [
-        "Personal information",
-        "Create an account",
+        "Contact details",
+        "Account credentials",
         "Upload documents",
     ];
 

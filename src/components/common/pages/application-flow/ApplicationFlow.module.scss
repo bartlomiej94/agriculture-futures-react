@@ -1,4 +1,4 @@
-@import "src/styles/globals.scss";
+@import "../../../../styles/globals.scss";
 
 .page {
     @include app-page;
@@ -15,10 +15,14 @@
 .form {
     @include app-form;
     background: #FFFFFF;
-    // border: 1px solid lighten($agriax-green, 35%);
     border: 1px solid $grey;
     border-radius: 4px;
     padding: 24px;
+    text-align: left;
+}
+
+.formButton {
+    @include flex-row-center;
 }
 
 .datePicker {
@@ -28,4 +32,15 @@
 
 .uploadArea {
     font-size: 14px;
+}
+
+.labelTooltip {
+    @include flex-row-center;
+    font-size: 16px;
+    margin-top: -6px;
+    color: $agriax-green !important;
+}
+
+.rowCenter {
+    @include flex-row-center;
 }
