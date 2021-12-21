@@ -9,9 +9,20 @@
 
     .logo {
         @include flex-row-center-y;
-        width: 175px;
+        width: 200px;
         margin: 0 !important;
         color: $agriax-green;
+    }
+
+    .buttonsGroup {
+        @include flex-row-end;
+        width: 200px;
+        margin: 0 !important;
+    }
+
+    .avatar {
+        background: $agriax-green;
+        cursor: pointer;
     }
 
     .title {

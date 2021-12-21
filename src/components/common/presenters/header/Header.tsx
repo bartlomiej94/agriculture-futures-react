@@ -1,15 +1,30 @@
 import * as React from "react";
 
-import { Button, Space, Typography } from "antd";
+import { Avatar, Button, Space, Typography } from "antd";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { RouteStrings } from "../../../../Routes";
 
+import { LocalAuthManager } from "../../../storage/LocalAuthManager";
+
+import { UserOutlined } from "@ant-design/icons";
 import styles from "./Header.module.scss";
 
 const Header: React.FC<any> = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const location = useLocation();
+    
+    const [isAuthed, setIsAuthed] = React.useState<boolean>(false);
+
+    React.useEffect(() => {
+        const authManager = new LocalAuthManager();
+        const auth = authManager.get();
+
+        if (auth.id && auth.email) {
+            setIsAuthed(true);
+        };
+    }, [location]);
 
     return (
         <div className={styles.container}>
@@ -33,17 +48,24 @@ const Header: React.FC<any> = () => {
                     Investors
                 </Typography.Text>
             </Space>
-            <Space size={24}>
-                <Typography.Text className={styles.title}>
-                    {t("actions:signIn")}
-                </Typography.Text>
-                <Button
-                    type="primary"
-                    onClick={() => navigate(RouteStrings.ApplicationFlowStepContactInfo)}
-                >
-                    {t("buttons:start")}
-                </Button>
-            </Space>
+            
+            <div className={styles.buttonsGroup}>
+                {isAuthed ? (
+                    <Avatar className={styles.avatar} size={40} icon={<UserOutlined />} />
+                ) : (
+                    <Space size={24}>
+                        <Typography.Text className={styles.title}>
+                            {t("actions:signIn")}
+                        </Typography.Text>
+                        <Button
+                            type="primary"
+                            onClick={() => navigate(RouteStrings.ApplicationFlowStepContactInfo)}
+                        >
+                            {t("buttons:start")}
+                        </Button>
+                    </Space>
+                )}
+            </div>
         </div>
     );
 };

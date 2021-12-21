@@ -8,10 +8,11 @@ import Stepper from "../../../presenters/stepper/Stepper";
 import { RouteStrings } from "../../../../../Routes";
 import { useNavigate } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import { LocalAuthManager } from "../../../../storage/LocalAuthManager";
 
 import { scrollTo } from "../../../../helpers/helpers";
 
-import { getUsers } from "../../../../../api/userService";
+import { getCredentialsIdByEmail, registerUser } from "../../../../../api/userService";
 
 import styles from "../ApplicationFlow.module.scss";
 
@@ -20,29 +21,63 @@ const ApplicationStepCreateAccount: React.FC<any> = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
 
+    const [email, setEmail] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
     const [loading, setLoading] = React.useState<boolean>(false);
     const [isLogin, setIsLogin] = React.useState<boolean>(false);
+    const [generalError, setGeneralError] = React.useState<string>("");
 
     const handleSubmit = () => {
-        setLoading(true);
+        if (isLogin) {
+            
+        } else {
+            register();
+        }
+    };
+    
+    const toNextStep = (userId: string) => {
+        const authManager = new LocalAuthManager();
 
-        // Mocked fetch
+        authManager.update({
+            email,
+            id: userId,
+        });
+
         setTimeout(() => {
             navigate(RouteStrings.ApplicationFlowStepDocuments);
-        }, 1000);
+        }, 250);
     };
-    const fetchUsers = async () => {
-        getUsers.then(res => {
-            console.log(res);
-        });
+
+    const register = async () => {
+        setLoading(true);
+        let userId: string = "";
+
+        try {
+            const accountId = await getCredentialsIdByEmail(email);
+    
+            if (accountId) {
+                setLoading(false);
+                return setGeneralError(t("forms:errors:takenEmail"));
+            }
+    
+            userId = await registerUser(email, password);
+        } catch (error) {
+            setLoading(false);
+            setGeneralError(t("forms:errors:general"));
+            console.error(error);
+        }
+
+        toNextStep(userId);
     };
 
     React.useEffect(() => {
         scrollTo(0);
-        fetchUsers();
     }, []);
+
+    React.useEffect(() => {
+        setGeneralError("");
+    }, [isLogin]);
 
     return (
         <div className={styles.page}>
@@ -60,6 +95,7 @@ const ApplicationStepCreateAccount: React.FC<any> = () => {
                 form={form}
                 scrollToFirstError
                 onFinish={handleSubmit}
+                onChange={() => setGeneralError("")}
             >
                 <BackButton to={RouteStrings.ApplicationFlowStepContactInfo} />
 
@@ -76,6 +112,7 @@ const ApplicationStepCreateAccount: React.FC<any> = () => {
                 >
                     <Input
                         data-cy="input_email"
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </Form.Item>
 
@@ -122,6 +159,14 @@ const ApplicationStepCreateAccount: React.FC<any> = () => {
                 )}
 
                 <Space direction="vertical" style={{ width: "100%" }} size={32}>
+                    {generalError && (
+                        <div className={styles.rowCenter}>
+                            <Typography.Text className="agriax-error">
+                                {generalError}
+                            </Typography.Text>
+                        </div>
+                    )}
+
                     <div className={styles.formButton}>
                         {loading ? (
                             <Spin />

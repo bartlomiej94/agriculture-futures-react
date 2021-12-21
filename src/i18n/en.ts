@@ -56,12 +56,14 @@ export const en = {
                 isSeller: "You are a seller if you can prove you own a farm (or whatever) and are willing to sell and deliver goods to our depot. You are not a seller if you only want to buy goods."
             },
             errors: {
+                general: "Something went wrong.",
                 invalidData: "Provided data is invalid.",
-                invalidEmail: "Provided email is invalid.",
+                invalidEmail: "Provided e-mail is invalid.",
                 invalidPassword: "Password needs to be at least 2 characters long.",
                 notMatchedPassword: "Provided passwords do not match.",
                 emptyDate: "Please select a date.",
                 emptyOption: "Please select an option.",
+                takenEmail: "We already have an account with this e-mail address.",
                 under18: "You must be over the age of 18 to use our service.",
             },
         },

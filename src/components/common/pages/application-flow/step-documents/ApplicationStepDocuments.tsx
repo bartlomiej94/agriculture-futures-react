@@ -2,7 +2,6 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button, Divider, Form, Input, Space, Table, Typography, Upload } from "antd";
-import BackButton from "../../../presenters/back-button/BackButton";
 import Stepper from "../../../presenters/stepper/Stepper";
 
 import { RouteStrings } from "../../../../../Routes";
@@ -51,8 +50,6 @@ const ApplicationStepDocuments: React.FC<any> = () => {
                 scrollToFirstError
                 onFinish={handleSubmit}
             >
-                <BackButton to={RouteStrings.ApplicationFlowStepCreateAccount} />
-
                 <Stepper
                     current={RouteStrings.ApplicationFlowStepDocuments}
                     steps={RouteStrings.DEFAULT_PROCESS_FLOW_PATHS}
