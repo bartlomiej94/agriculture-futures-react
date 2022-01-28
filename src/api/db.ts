@@ -1,7 +1,7 @@
 import faunadb from 'faunadb';
 
 const client = new faunadb.Client({
-    secret: "fnAEa9l7NtAAw0ZnxmsjolShC0-_RLHZaCEVvP0w",
+    secret: "secret-goes-here",
     domain: "db.eu.fauna.com",
 });
 

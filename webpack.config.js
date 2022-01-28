@@ -7,6 +7,10 @@ module.exports = {
     mode: "development",
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".mjs"],
+        alias: {
+            root: __dirname,
+            src: path.resolve(__dirname, 'src'),
+        },
     },
     devServer: {
         static: {

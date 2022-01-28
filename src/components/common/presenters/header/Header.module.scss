@@ -3,26 +3,53 @@
 .container {
     @include flex-row-space-between;
     align-items: center;
-    padding: 0 96px;
     width: 100%;
+    padding: 0 96px;
     height: 70px;
+    border-bottom: 1px solid $grey;
 
     .logo {
         @include flex-row-center-y;
-        width: 200px;
+        width: 300px;
         margin: 0 !important;
         color: $agriax-green;
     }
 
+    &.dashboard {
+        position: fixed;
+        top: 0;
+        z-index: 9999;
+        background: #fff;
+        margin-left: 250px;
+        padding: 0 24px;
+    }
+
+    .userMenu {
+        width: 50px;
+        border: 0;
+        z-index: 99999;
+    }
+
     .buttonsGroup {
+        position: relative;
         @include flex-row-end;
-        width: 200px;
+        width: 300px;
         margin: 0 !important;
+        z-index: 999999;
+
+        &.authed {
+            align-self: flex-start;
+            padding-top: 12px;
+        }
+    }
+
+    .avatarContainer {
+        display: flex;
+        justify-content: flex-end;
     }
 
     .avatar {
         background: $agriax-green;
-        cursor: pointer;
     }
 
     .title {

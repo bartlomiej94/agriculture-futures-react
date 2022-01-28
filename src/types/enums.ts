@@ -10,3 +10,8 @@ export enum Salutations {
     Miss = "miss",
     Dr = "dr",
 }
+
+export enum MarketObjectTypes {
+    Asset = "asset",
+    Index = "index",
+}

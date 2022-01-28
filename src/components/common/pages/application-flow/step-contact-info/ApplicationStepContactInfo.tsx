@@ -32,11 +32,13 @@ const ApplicationStepContactInfo: React.FC<any> = () => {
             appl.last_name = values.last_name;
             appl.birthdate = values.birthdate.format("DD-MM-YYYY");
             appl.nationality = values.nationality;
-            appl.street = values.street;
-            appl.house_number = values.house_number;
-            appl.city = values.city;
-            appl.postcode = values.postcode;
-            appl.country = values.country;
+            appl.address = {
+                street: values.street,
+                house_number: values.house_number,
+                city: values.city,
+                postcode: values.postcode,
+                country: values.country,
+            },
             appl.is_seller = values.is_seller;
     
             applDataManager.update(appl);
@@ -79,11 +81,11 @@ const ApplicationStepContactInfo: React.FC<any> = () => {
             last_name: appl.last_name,
             birthdate: appl.birthdate && moment(appl.birthdate),
             nationality: appl.nationality,
-            street: appl.street,
-            house_number: appl.house_number,
-            city: appl.city,
-            country: appl.country,
-            postcode: appl.postcode,
+            street: appl.address.street || "",
+            house_number: appl.address.house_number || "",
+            city: appl.address.city || "",
+            postcode: appl.address.postcode || "",
+            country: appl.address.country || "",
             is_seller: appl.is_seller,
         });
     }, []);

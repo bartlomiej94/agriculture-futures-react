@@ -1,13 +1,14 @@
 import * as React from "react";
 
-import { Avatar, Button, Space, Typography } from "antd";
+import { Avatar, Button, Menu, Space, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { RouteStrings } from "../../../../Routes";
 
-import { LocalAuthManager } from "../../../storage/LocalAuthManager";
+import { getAuthId, logoutUser } from "../../../storage/LocalAuthManager";
 
-import { UserOutlined } from "@ant-design/icons";
+
+import { AuditOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import styles from "./Header.module.scss";
 
 const Header: React.FC<any> = () => {
@@ -17,20 +18,23 @@ const Header: React.FC<any> = () => {
     
     const [isAuthed, setIsAuthed] = React.useState<boolean>(false);
 
-    React.useEffect(() => {
-        const authManager = new LocalAuthManager();
-        const auth = authManager.get();
+    const isDashboard = location.pathname.startsWith(RouteStrings.Dashboard);
 
-        if (auth.id && auth.email) {
-            setIsAuthed(true);
-        };
+    React.useEffect(() => {
+        setIsAuthed(!!getAuthId());
     }, [location]);
 
+    if (location.pathname.startsWith(RouteStrings.LoginPage)) {
+        return null;
+    };
+
     return (
-        <div className={styles.container}>
-            <Typography.Title level={2} className={styles.logo}>
-                agriax
-            </Typography.Title>
+        <div className={[styles.container, isDashboard && styles.dashboard].join(" ")}>
+            {!isDashboard && (
+                <Typography.Title level={2} className={styles.logo}>
+                    agriax
+                </Typography.Title>
+            )}
             <Space size={48}>
                 <Typography.Text className={styles.title}>
                     Learn
@@ -49,23 +53,24 @@ const Header: React.FC<any> = () => {
                 </Typography.Text>
             </Space>
             
-            <div className={styles.buttonsGroup}>
-                {isAuthed ? (
-                    <Avatar className={styles.avatar} size={40} icon={<UserOutlined />} />
-                ) : (
-                    <Space size={24}>
-                        <Typography.Text className={styles.title}>
-                            {t("actions:signIn")}
-                        </Typography.Text>
-                        <Button
-                            type="primary"
-                            onClick={() => navigate(RouteStrings.ApplicationFlowStepContactInfo)}
-                        >
-                            {t("buttons:start")}
-                        </Button>
-                    </Space>
-                )}
-            </div>
+            {!isAuthed && (
+                <div className={[styles.buttonsGroup, isAuthed && styles.authed].join(" ")}>
+                        <Space size={24}>
+                            <Typography.Text
+                                className={styles.title}
+                                onClick={() => navigate(RouteStrings.LoginPage)}
+                            >
+                                {t("actions:signIn")}
+                            </Typography.Text>
+                            <Button
+                                type="primary"
+                                onClick={() => navigate(RouteStrings.ApplicationFlowStepContactInfo)}
+                            >
+                                {t("buttons:start")}
+                            </Button>
+                        </Space>
+                </div>
+            )}
         </div>
     );
 };

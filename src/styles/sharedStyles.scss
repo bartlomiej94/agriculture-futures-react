@@ -44,6 +44,10 @@
     }
 }
 
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background: $agriax-bright-green !important;
+}
+
 .ant-input,
 .ant-picker,
 .ant-select:not(.ant-select-disabled) .ant-select-selector {
@@ -58,10 +62,18 @@
     }
 }
 
+.agriax-green,
 .ant-picker-today-btn,
 .ant-spin,
 .ant-spin-dot-item,
-.agriax-green {
+.ant-menu-light .ant-menu-submenu-active,
+.ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow,
+.ant-menu-item-selected,
+.ant-menu-item:hover,
+.ant-menu-submenu-selected,
+.ant-menu-submenu-title:hover,
+.ant-tabs-tab-btn:hover,
+.ant-btn-ghost:hover {
     color: $agriax-green !important;
 }
 
@@ -73,13 +85,21 @@ a {
     }
 }
 
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: $agriax-green !important;
+    font-weight: bold;
+}
+
 .ant-picker-cell-today {
     .ant-picker-cell-inner::before {
         border-color: darken($agriax-green, 10%) !important;
     }
 }
 
-.ant-radio-checked .ant-radio-inner {
+.ant-radio-checked .ant-radio-inner,
+.ant-menu-inline .ant-menu-item::after,
+.ant-pagination-item-active,
+.ant-btn-ghost:hover {
     border-color: $agriax-green !important;
 }
 

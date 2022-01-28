@@ -67,14 +67,21 @@ export const en = {
                 under18: "You must be over the age of 18 to use our service.",
             },
         },
+        marketObjects: {
+            asset: "Asset",
+            index: "Index",
+        },
         buttons: {
             start: "Get Started",
             continue: "Continue",
             finalize: "Finalize",
             completeLater: "Complete later",
+            login: "Login",
         },
         actions: {
             signIn: "Sign in",
+            logout: "Logout",
+            applications: "Applications",
         },
         salutations: {
             mr: "Mr",

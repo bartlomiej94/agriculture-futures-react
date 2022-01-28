@@ -60,3 +60,16 @@ export class LocalAuthManager {
         }
     }
 }
+
+export const getAuthId = () => {
+    const authManager = new LocalAuthManager();
+    const auth = authManager.get();
+
+    return auth.id;
+};
+
+export const logoutUser = () => {
+    const authManager = new LocalAuthManager();
+    authManager.reset();
+    window.location.reload()
+};

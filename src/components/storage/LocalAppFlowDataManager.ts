@@ -1,14 +1,12 @@
+import { Address } from "../../types/api";
+
 export interface ApplicationFlowFormData {
     salutation: string
     first_name: string
     last_name: string
     birthdate: string
     nationality: string
-    street: string
-    house_number: string
-    city: string
-    postcode: string
-    country: string
+    address: Address
     is_seller: boolean | null
 }
 
@@ -52,11 +50,13 @@ export class LocalApplicationFlowDataManager {
             last_name: "",
             birthdate: "",
             nationality: "",
-            street: "",
-            house_number: "",
-            city: "",
-            postcode: "",
-            country: "",
+            address: {
+                street: "",
+                house_number: "",
+                city: "",
+                postcode: "",
+                country: "",
+            },
             is_seller: null,
         };
     }

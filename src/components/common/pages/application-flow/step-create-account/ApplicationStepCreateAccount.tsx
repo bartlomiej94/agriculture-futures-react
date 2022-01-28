@@ -9,10 +9,11 @@ import { RouteStrings } from "../../../../../Routes";
 import { useNavigate } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { LocalAuthManager } from "../../../../storage/LocalAuthManager";
+import { LocalApplicationFlowDataManager } from "../../../../storage/LocalAppFlowDataManager";
 
 import { scrollTo } from "../../../../helpers/helpers";
 
-import { getCredentialsIdByEmail, registerUser } from "../../../../../api/userService";
+import { createUserInstance, getCredentialsIdByEmail, registerUser } from "../../../../../api/userService";
 
 import styles from "../ApplicationFlow.module.scss";
 
@@ -38,7 +39,7 @@ const ApplicationStepCreateAccount: React.FC<any> = () => {
     
     const toNextStep = (userId: string) => {
         const authManager = new LocalAuthManager();
-
+        
         authManager.update({
             email,
             id: userId,
@@ -53,6 +54,10 @@ const ApplicationStepCreateAccount: React.FC<any> = () => {
         setLoading(true);
         let userId: string = "";
 
+        const applDataManager = new LocalApplicationFlowDataManager();
+
+        const appl = applDataManager.get();
+
         try {
             const accountId = await getCredentialsIdByEmail(email);
     
@@ -61,7 +66,24 @@ const ApplicationStepCreateAccount: React.FC<any> = () => {
                 return setGeneralError(t("forms:errors:takenEmail"));
             }
     
-            userId = await registerUser(email, password);
+            userId = await registerUser({ email, password });
+
+            createUserInstance({
+                id: userId,
+                salutation: appl.salutation,
+                first_name: appl.first_name,
+                last_name: appl.last_name,
+                birthdate: appl.birthdate,
+                nationality: appl.nationality,
+                address: {
+                    street: appl.address.street,
+                    house_number: appl.address.house_number,
+                    city: appl.address.city,
+                    postcode: appl.address.postcode,
+                    country: appl.address.country,
+                },
+                is_seller: appl.is_seller,
+            });
         } catch (error) {
             setLoading(false);
             setGeneralError(t("forms:errors:general"));
@@ -174,7 +196,6 @@ const ApplicationStepCreateAccount: React.FC<any> = () => {
                             <Button type="primary" htmlType="submit">
                                 {t("buttons:continue")}
                             </Button>
-                        
                         )}
                     </div>
 

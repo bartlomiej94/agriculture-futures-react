@@ -1,0 +1,13 @@
+@import "../../../../styles/globals.scss";
+
+.container {
+    height: 60%;
+
+    .header {
+        @include flex-row-space-between;
+    }
+
+    .orderbook {
+        border: 1px dashed $grey;
+    }
+}

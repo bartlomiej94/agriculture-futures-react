@@ -1,0 +1,27 @@
+@import "../../../../styles/globals.scss";
+
+.page {
+    @include app-page;
+    background: $light-grey;
+    min-height: 100vh;
+    padding: 92px 48px;
+}
+
+.header {
+    max-width: 400px;
+    margin-bottom: 24px;
+}
+
+.form {
+    @include app-form;
+    width: 450px;
+    background: #FFFFFF;
+    border: 1px solid $grey;
+    border-radius: 4px;
+    padding: 24px;
+    text-align: left;
+}
+
+.rowCenter {
+    @include flex-row-center;
+}

@@ -1,0 +1,8 @@
+@import "../../../../styles/globals.scss";
+
+.container {
+    margin-top: 75px;
+    min-height: calc(100vh - 70px);
+    margin-left: 250px;
+    background: $light-grey;
+}
